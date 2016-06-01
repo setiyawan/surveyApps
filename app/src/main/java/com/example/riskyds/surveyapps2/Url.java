@@ -12,8 +12,9 @@ public class Url {
     public static final String Server = "http://192.168.180.1/ta/web/index.php/";
 
     public static final String Login = Server + "c_user/login";
-    public static final String home = Server + "c_home";
+    public static final String Home = Server + "c_home";
     public static final String password = Server + "c_user/changePassword";
+    public static final String SektorPekerjaan = Server + "c_pekerjaan/getall";
 
-    public static final String SurveyAll = Server + "c_user/getall";
+    public static final String SurveyAll = Server + "c_survey/getall";
 }
