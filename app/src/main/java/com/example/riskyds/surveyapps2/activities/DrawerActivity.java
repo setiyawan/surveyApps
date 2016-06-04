@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.riskyds.surveyapps2.R;
 import com.example.riskyds.surveyapps2.fragments.DashboadFragment;
 import com.example.riskyds.surveyapps2.fragments.PasswordFragment;
+import com.example.riskyds.surveyapps2.fragments.SurveyFragment;
+import com.example.riskyds.surveyapps2.fragments.SurveyListFragment;
 import com.example.riskyds.surveyapps2.helpers.SessionManager;
 import com.example.riskyds.surveyapps2.models.User;
 
@@ -88,8 +90,9 @@ public class DrawerActivity extends AppCompatActivity
         if (id == R.id.nav_dashboard) {
             fragment = new DashboadFragment();
         } else if (id == R.id.nav_survey) {
-            Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
+//            startActivity(intent);
+            fragment = new SurveyListFragment();
         } else if (id == R.id.nav_change_password) {
             fragment = new PasswordFragment();
         } else if (id == R.id.nav_log_out) {

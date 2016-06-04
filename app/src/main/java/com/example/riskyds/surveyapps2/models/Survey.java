@@ -1,8 +1,12 @@
 package com.example.riskyds.surveyapps2.models;
 
+import android.content.Intent;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sevima on 5/31/2016.
@@ -19,13 +23,13 @@ public class Survey implements Serializable {
         return list;
     }
 
-    public static List<String> getPendidikan() {
-        List<String> list = new ArrayList<>();
-        list.add("Perguruan Tinggi");
-        list.add("SMA/sederajat");
-        list.add("SMP/sederajat");
-        list.add("SD/sederajat");
-        list.add("Tidak punya ijazah");
+    public static ArrayPair getPendidikan() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Perguruan Tinggi", "4"));
+        list.getData().add(new Pair("SMA/sederajat", "3"));
+        list.getData().add(new Pair("SMP/sederajat", "2"));
+        list.getData().add(new Pair("SD/sederajat", "1"));
+        list.getData().add(new Pair("Tidak punya ijazah", "0"));
         return list;
     }
 

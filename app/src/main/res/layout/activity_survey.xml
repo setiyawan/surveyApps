@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/password_form"
@@ -13,177 +14,187 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Keluarga"/>
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/idkeluarga" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Keluarga" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Jenis Kelamin"/>
+            <Spinner
+                android:id="@+id/idkeluarga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <Spinner
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jenis Kelamin" />
+
+            <Spinner
+                android:id="@+id/jeniskelamin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionId="@+id/login"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/umur"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Umur"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
+                    android:inputType="number"
                     android:maxLines="1"
-                    android:singleLine="true"
-                    android:id="@+id/jeniskelamin" />
+                    android:singleLine="true" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            </android.support.design.widget.TextInputLayout>
 
-                    <EditText
-                        android:id="@+id/umur"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Umur"
-                        android:imeActionId="@+id/login"
-                        android:imeActionLabel="@string/action_sign_in_short"
-                        android:imeOptions="actionUnspecified"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pendidikan" />
 
-                </android.support.design.widget.TextInputLayout>
+            <Spinner
+                android:id="@+id/pendidikan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pendidikan"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pekerjaan" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pendidikan" />
+            <Spinner
+                android:id="@+id/pekerjaan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/jmlhindividu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pekerjaan"/>
+                    android:hint="Jumlah Individu"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pekerjaan" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/jmlhindividu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Jumlah Individu"
-                        android:imeActionId="@+id/login"
-                        android:imeActionLabel="@string/action_sign_in_short"
-                        android:imeOptions="actionUnspecified"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:singleLine="true" />
-
-                </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>
 
             <!--Infrastruktur-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Penguasaan Bangunan"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Penguasaan Bangunan" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/penguasaanbangunan" />
+            <Spinner
+                android:id="@+id/penguasaanbangunan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Jenis Atap"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jenis Atap" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/jenisatap" />
+            <Spinner
+                android:id="@+id/jenisatap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Jenis Dinding"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jenis Dinding" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/jenisdinding" />
+            <Spinner
+                android:id="@+id/jenisdinding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Jenis Lantai"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jenis Lantai" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/jenislantai" />
+            <Spinner
+                android:id="@+id/jenislantai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Air Minum"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Air Minum" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/airminum" />
+            <Spinner
+                android:id="@+id/airminum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Penerangan"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Penerangan" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/penerangan" />
+            <Spinner
+                android:id="@+id/penerangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Bahan Bakar Memasak"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bahan Bakar Memasak" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bahanbakarmasak" />
+            <Spinner
+                android:id="@+id/bahanbakarmasak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fasilitas BAB"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fasilitas BAB" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fasilitasbab" />
+            <Spinner
+                android:id="@+id/fasilitasbab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tempat Pembuangan Tinja"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tempat Pembuangan Tinja" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pembuangantinja" />
+            <Spinner
+                android:id="@+id/pembuangantinja"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnSurvey"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Submit"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
