@@ -34,6 +34,8 @@ public class SessionManager {
         editor.putString("idakun", user.getIdakun());
         editor.putString("nama", user.getNama());
         editor.putString("username", user.getUsername());
+        editor.putString("jabatan", user.getJabatan());
+        editor.putString("nohp", user.getNohp());
         editor.putBoolean(IS_USER_LOGIN, true);
         editor.commit();
     }
@@ -48,6 +50,8 @@ public class SessionManager {
         user.setIdakun(sharedPreferences.getString("idakun", null));
         user.setNama(sharedPreferences.getString("nama", null));
         user.setUsername(sharedPreferences.getString("username", null));
+        user.setJabatan(sharedPreferences.getString("jabatan", null));
+        user.setNohp(sharedPreferences.getString("nohp", null));
 
         return user;
     }

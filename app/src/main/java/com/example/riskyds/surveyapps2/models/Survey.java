@@ -63,7 +63,7 @@ public class Survey implements Serializable {
 
     public static List<String> getJenisLantai() {
         List<String> list = new ArrayList<>();
-        list.add("Bukan Tanah/bambu'");
+        list.add("Bukan Tanah/bambu");
         list.add("Tanah");
         list.add("Bambu");
         return list;

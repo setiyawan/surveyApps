@@ -9,6 +9,8 @@ public class User implements Serializable {
     private String idakun;
     private String username;
     private String nama;
+    private String jabatan;
+    private String nohp;
 
     public String getUsername() {
         return username;
@@ -32,5 +34,21 @@ public class User implements Serializable {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public String getJabatan() {
+        return jabatan;
+    }
+
+    public void setJabatan(String jabatan) {
+        this.jabatan = jabatan;
+    }
+
+    public String getNohp() {
+        return nohp;
+    }
+
+    public void setNohp(String nohp) {
+        this.nohp = nohp;
     }
 }

@@ -28,7 +28,7 @@ public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     protected FragmentManager fragmentManager;
-    protected TextView txtAkun;
+    protected TextView txtAkun, txtInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,11 @@ public class DrawerActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.drawer, menu);
+        SessionManager sessionManager = SessionManager.getInstance(this);
+        txtAkun = (TextView) findViewById(R.id.txtAkun);
+        txtInfo = (TextView) findViewById(R.id.txtInfo);
+        txtAkun.setText(sessionManager.getThisUser().getNama());
+        txtInfo.setText(sessionManager.getThisUser().getJabatan() + " | " + sessionManager.getThisUser().getNohp());
         return true;
     }
 
@@ -90,9 +95,10 @@ public class DrawerActivity extends AppCompatActivity
         if (id == R.id.nav_dashboard) {
             fragment = new DashboadFragment();
         } else if (id == R.id.nav_survey) {
-//            Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
-//            startActivity(intent);
             fragment = new SurveyListFragment();
+        } else if (id == R.id.nav_add) {
+            Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_change_password) {
             fragment = new PasswordFragment();
         } else if (id == R.id.nav_log_out) {
