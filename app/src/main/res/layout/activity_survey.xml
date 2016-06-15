@@ -21,7 +21,7 @@
                 android:text="Nama Keluarga" />
 
             <Spinner
-                android:id="@+id/idkeluarga"
+                android:id="@+id/idkeluargas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

@@ -16,10 +16,10 @@ public class Survey implements Serializable {
     private int idkeluarga;
     private int jeniskelamin;
 
-    public static List<String> getJenisKelamin() {
-        List<String> list = new ArrayList<>();
-        list.add("Laki-laki");
-        list.add("Perempuan");
+    public static ArrayPair getJenisKelamin() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Laki-laki", "1"));
+        list.getData().add(new Pair("Perempuan", "2"));
         return list;
     }
 
@@ -33,78 +33,78 @@ public class Survey implements Serializable {
         return list;
     }
 
-    public static List<String> getPenguasaanBangunan() {
-        List<String> list = new ArrayList<>();
-        list.add("Milik sendiri");
-        list.add("Kontrak/Sewa");
-        list.add("Lainnya");
+    public static ArrayPair getPenguasaanBangunan() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Milik sendiri", "1"));
+        list.getData().add(new Pair("Kontrak/Sewa", "2"));
+        list.getData().add(new Pair("Lainnya", "3"));
         return list;
     }
 
-    public static List<String> getJenisAtap() {
-        List<String> list = new ArrayList<>();
-        list.add("Beton");
-        list.add("Genteng");
-        list.add("Sirap");
-        list.add("Seng");
-        list.add("Asbes");
-        list.add("Ijuk/Rumbai");
+    public static ArrayPair getJenisAtap() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Beton", "1"));
+        list.getData().add(new Pair("Genteng", "2"));
+        list.getData().add(new Pair("Sirap", "3"));
+        list.getData().add(new Pair("Seng", "4"));
+        list.getData().add(new Pair("Asbes", "5"));
+        list.getData().add(new Pair("Ijuk/Rumbai", "6"));
         return list;
     }
 
-    public static List<String> getJenisDinding() {
-        List<String> list = new ArrayList<>();
-        list.add("Tembok");
-        list.add("Kayu");
-        list.add("Bambu");
-        list.add("Lainnya");
+    public static ArrayPair getJenisDinding() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Tembok", "1"));
+        list.getData().add(new Pair("Kayu", "2"));
+        list.getData().add(new Pair("Bambu", "3"));
+        list.getData().add(new Pair("Lainnya", "4"));
         return list;
     }
 
-    public static List<String> getJenisLantai() {
-        List<String> list = new ArrayList<>();
-        list.add("Bukan Tanah/bambu");
-        list.add("Tanah");
-        list.add("Bambu");
+    public static ArrayPair getJenisLantai() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Bukan Tanah/bambu", "1"));
+        list.getData().add(new Pair("Tanah", "2"));
+        list.getData().add(new Pair("Bambu", "3"));
         return list;
     }
 
-    public static List<String> getAirMinum() {
-        List<String> list = new ArrayList<>();
-        list.add("Air Kemasan");
-        list.add("Air Ledeng");
-        list.add("Air Terlindung");
-        list.add("Air idak Terlindung");
+    public static ArrayPair getAirMinum() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Air Kemasan", "1"));
+        list.getData().add(new Pair("Air Ledeng", "2"));
+        list.getData().add(new Pair("Air Terlindung", "3"));
+        list.getData().add(new Pair("Air Tidak Terlindung", "4"));
         return list;
     }
 
-    public static List<String> getPenerangan() {
-        List<String> list = new ArrayList<>();
-        list.add("Listrik PLN");
-        list.add("Listrik Non PLN");
-        list.add("Tidak Ada Listrik");
+    public static ArrayPair getPenerangan() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Listrik PLN", "1"));
+        list.getData().add(new Pair("Listrik Non PLN", "2"));
+        list.getData().add(new Pair("Tidak Ada Listrik", "3"));
         return list;
     }
 
-    public static List<String> getBahanBakarMasak() {
-        List<String> list = new ArrayList<>();
-        list.add("Listrik/Gas/LPJ");
-        list.add("Lainnya");
+    public static ArrayPair getBahanBakarMasak() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Listrik/Gas/LP", "1"));
+        list.getData().add(new Pair("Lainnya", "2"));
         return list;
     }
 
-    public static List<String> getFasilitasBab() {
-        List<String> list = new ArrayList<>();
-        list.add("Sendiri");
-        list.add("Bersama/Umum");
-        list.add("Tidak Ada");
+    public static ArrayPair getFasilitasBab() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Sendiri", "1"));
+        list.getData().add(new Pair("Bersama/Umum", "2"));
+        list.getData().add(new Pair("Tidak Ada", "3"));
         return list;
     }
 
-    public static List<String> getPembuanganTinja() {
-        List<String> list = new ArrayList<>();
-        list.add("Tangki/SPAL");
-        list.add("Lainnya");
+    public static ArrayPair getPembuanganTinja() {
+        ArrayPair list = new ArrayPair();
+        list.getData().add(new Pair("Tangki/SPAL", "1"));
+        list.getData().add(new Pair("Lainnya", "2"));
         return list;
     }
 }
