@@ -96,9 +96,6 @@ public class DrawerActivity extends AppCompatActivity
             fragment = new DashboadFragment();
         } else if (id == R.id.nav_survey) {
             fragment = new SurveyListFragment();
-        } else if (id == R.id.nav_add) {
-            Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_change_password) {
             fragment = new PasswordFragment();
         } else if (id == R.id.nav_log_out) {

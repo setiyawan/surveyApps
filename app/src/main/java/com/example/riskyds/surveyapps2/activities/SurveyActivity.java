@@ -3,6 +3,7 @@ package com.example.riskyds.surveyapps2.activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.riskyds.surveyapps2.R;
 import com.example.riskyds.surveyapps2.Url;
+import com.example.riskyds.surveyapps2.fragments.SurveyListFragment;
 import com.example.riskyds.surveyapps2.helpers.RequestAsyncTask;
 import com.example.riskyds.surveyapps2.helpers.ResponseManager;
 import com.example.riskyds.surveyapps2.helpers.SessionManager;
@@ -38,6 +40,7 @@ public class SurveyActivity extends AppCompatActivity {
     private Spinner jeniskelamin, pendidikan, penguasaanbangunan, jenisatap, jenisdinding, jenislantai, airminum,
             penerangan, bahanbakarmasak, fasilitasbab, pembuangantinja, spinnerPekerjaan, spinnerKeluarga;
     ProgressBar progres_bar;
+    private EditText umur, jmlhindividu;
     private Button buttonSurvey;
     ArrayPair tmp = new ArrayPair();
 
@@ -74,23 +77,79 @@ public class SurveyActivity extends AppCompatActivity {
         };
         listSurvey.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Url.ListSurvey);
 
+        umur = ((EditText) findViewById(R.id.umur));
+        jmlhindividu = ((EditText) findViewById(R.id.jmlhindividu));
+
         buttonSurvey = ((Button) findViewById(R.id.btnSurvey));
         buttonSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SessionManager sessionManager = SessionManager.getInstance(getApplicationContext());
+                Map<String, String> data = new HashMap<>();
+
                 Keluarga keluarga = (Keluarga) spinnerKeluarga.getSelectedItem();
-                Pekerjaan pekerjaan = (Pekerjaan) spinnerPekerjaan.getSelectedItem();
+                jeniskelamin = ((Spinner) findViewById(R.id.jeniskelamin));
+                // Umur
                 pendidikan = (Spinner) findViewById(R.id.pendidikan);
+                Pekerjaan pekerjaan = (Pekerjaan) spinnerPekerjaan.getSelectedItem();
+                // Jumlah Individu
                 penguasaanbangunan = (Spinner) findViewById(R.id.penguasaanbangunan);
+                jenisatap = ((Spinner) findViewById(R.id.jenisatap));
+                jenisdinding = ((Spinner) findViewById(R.id.jenisdinding));
+                jenislantai = ((Spinner) findViewById(R.id.jenislantai));
+                airminum = ((Spinner) findViewById(R.id.airminum));
+                penerangan = ((Spinner) findViewById(R.id.penerangan));
+                bahanbakarmasak = ((Spinner) findViewById(R.id.bahanbakarmasak));
+                fasilitasbab = ((Spinner) findViewById(R.id.fasilitasbab));
+                pembuangantinja = ((Spinner) findViewById(R.id.pembuangantinja));
 
-                Log.v("ID Keluarga ", keluarga.getIdkeluarga());
-                Log.v("ID Pekerjaan ", pekerjaan.getIdgaji());
+                if(umur.getText().toString().equals("") || jmlhindividu.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Tidak Boleh Ada Informasi Yang Kosong", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    data.put("idakun", sessionManager.getThisUser().getIdakun());
+                    data.put("idkeluarga", keluarga.getIdkeluarga());
 
-                tmp = Survey.getPendidikan();
-                Log.v("ID Pendidikan ", tmp.getValueFromKey(pendidikan.getSelectedItem().toString()));
+                    tmp = Survey.getJenisKelamin();
+                    data.put("jeniskelamin", tmp.getValueFromKey(jeniskelamin.getSelectedItem().toString()));
+                    data.put("umur", umur.getText().toString());
+                    tmp = Survey.getPendidikan();
+                    data.put("pendidikan", tmp.getValueFromKey(pendidikan.getSelectedItem().toString()));
+                    data.put("pekerjaan", pekerjaan.getIdgaji());
+                    data.put("jmlhindividu", jmlhindividu.getText().toString());
+                    tmp = Survey.getPenguasaanBangunan();
+                    data.put("penguasaanbangunan", tmp.getValueFromKey(penguasaanbangunan.getSelectedItem().toString()));
+                    tmp = Survey.getJenisAtap();
+                    data.put("jenisatap", tmp.getValueFromKey(jenisatap.getSelectedItem().toString()));
+                    tmp = Survey.getJenisDinding();
+                    data.put("jenisdinding", tmp.getValueFromKey(jenisdinding.getSelectedItem().toString()));
+                    tmp = Survey.getJenisLantai();
+                    data.put("jenislantai", tmp.getValueFromKey(jenislantai.getSelectedItem().toString()));
+                    tmp = Survey.getAirMinum();
+                    data.put("airminum", tmp.getValueFromKey(airminum.getSelectedItem().toString()));
+                    tmp = Survey.getPenerangan();
+                    data.put("penerangan", tmp.getValueFromKey(penerangan.getSelectedItem().toString()));
+                    tmp = Survey.getBahanBakarMasak();
+                    data.put("bahanbakarmasak", tmp.getValueFromKey(bahanbakarmasak.getSelectedItem().toString()));
+                    tmp = Survey.getFasilitasBab();
+                    data.put("fasilitasbab", tmp.getValueFromKey(fasilitasbab.getSelectedItem().toString()));
+                    tmp = Survey.getPembuanganTinja();
+                    data.put("pembuangantinja", tmp.getValueFromKey(pembuangantinja.getSelectedItem().toString()));
 
-                tmp = Survey.getPenguasaanBangunan();
-                Log.v("ID Penguasaan Bangunan ", tmp.getValueFromKey(penguasaanbangunan.getSelectedItem().toString()));
+                    RequestAsyncTask login = new RequestAsyncTask(data, null, progres_bar) {
+                        @Override
+                        protected void setAfterThread(ResponseManager responseManager) {
+                            if (responseManager.getCode().equals(Url.CodeTrue)) {
+//                            Fragment fragment = null;
+//                            fragment = new SurveyListFragment();
+                                finish();
+                            }
+                            Toast.makeText(getApplicationContext(), responseManager.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    };
+                    login.execute(Url.AddSurvey);
+                }
+
             }
         });
     }

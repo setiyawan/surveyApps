@@ -17,5 +17,6 @@ public class Url {
     public static final String SektorPekerjaan = Server + "c_pekerjaan/getall";
     public static final String ListSurvey = Server + "c_keluarga/listSurvey";
     public static final String SurveyAll = Server + "c_survey/getall";
+    public static final String AddSurvey = Server + "c_survey/add";
 
 }

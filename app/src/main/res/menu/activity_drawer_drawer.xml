@@ -10,10 +10,6 @@
             android:id="@+id/nav_survey"
             android:icon="@drawable/ic_survey"
             android:title="Survey" />
-        <item
-            android:id="@+id/nav_add"
-            android:icon="@drawable/ic_add"
-            android:title="Survey" />
 
     <item android:title="Optional">
         <menu>

@@ -1,10 +1,13 @@
 package com.example.riskyds.surveyapps2.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.riskyds.surveyapps2.R;
 import com.example.riskyds.surveyapps2.Url;
+import com.example.riskyds.surveyapps2.activities.SurveyActivity;
 import com.example.riskyds.surveyapps2.adapters.SurveyListAdapter;
 import com.example.riskyds.surveyapps2.helpers.RequestAsyncTask;
 import com.example.riskyds.surveyapps2.helpers.ResponseManager;
@@ -33,6 +37,7 @@ public class SurveyListFragment extends Fragment {
 
     ProgressBar progres_bar;
     RecyclerView rvMain;
+    FloatingActionButton addSurvey;
 
     List<SurveyList> surveyLists = new ArrayList<>();
 
@@ -45,6 +50,18 @@ public class SurveyListFragment extends Fragment {
         progres_bar = ((ProgressBar) v.findViewById(R.id.progress_bar));
         rvMain = ((RecyclerView) v.findViewById(R.id.rvMain));
         rvMain.setLayoutManager(layoutManager);
+
+        addSurvey = ((FloatingActionButton) v.findViewById(R.id.addSurvey));
+        addSurvey.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Intent intent = new Intent(getActivity(), SurveyActivity.class);
+                    startActivity(intent);
+                }
+                return true; // consume the event
+            }
+        });
 
         // todo adapter
         final SurveyListAdapter adapter = new SurveyListAdapter(surveyLists);

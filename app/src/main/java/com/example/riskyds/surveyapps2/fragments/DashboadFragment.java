@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.riskyds.surveyapps2.R;
 import com.example.riskyds.surveyapps2.Url;
@@ -65,7 +66,7 @@ public class DashboadFragment extends Fragment {
                 datavalid.setText(dashboard.getDataValid());
                 dataInvalid.setText(dashboard.getDataInvalid());
 
-                //Toast.makeText(getApplicationContext(), responseManager.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), responseManager.getMessage(), Toast.LENGTH_SHORT).show();
             }
         };
         login.execute(Url.Home);
