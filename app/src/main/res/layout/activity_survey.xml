@@ -13,12 +13,14 @@
             android:id="@+id/ganti_password_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nama Keluarga" />
+                android:text="Nama Keluarga"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/idkeluargas"
@@ -28,7 +30,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jenis Kelamin" />
+                android:text="Jenis Kelamin"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/jeniskelamin"
@@ -61,7 +64,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pendidikan" />
+                android:text="Pendidikan"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/pendidikan"
@@ -71,7 +75,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pekerjaan" />
+                android:text="Pekerjaan"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/pekerjaan"
@@ -100,7 +105,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Penguasaan Bangunan" />
+                android:text="Penguasaan Bangunan"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/penguasaanbangunan"
@@ -110,7 +116,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jenis Atap" />
+                android:text="Jenis Atap"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/jenisatap"
@@ -120,7 +127,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jenis Dinding" />
+                android:text="Jenis Dinding"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/jenisdinding"
@@ -130,7 +138,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jenis Lantai" />
+                android:text="Jenis Lantai"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/jenislantai"
@@ -140,7 +149,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Air Minum" />
+                android:text="Air Minum"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/airminum"
@@ -150,7 +160,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Penerangan" />
+                android:text="Penerangan"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/penerangan"
@@ -160,7 +171,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bahan Bakar Memasak" />
+                android:text="Bahan Bakar Memasak"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/bahanbakarmasak"
@@ -170,7 +182,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fasilitas BAB" />
+                android:text="Fasilitas BAB"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/fasilitasbab"
@@ -180,7 +193,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tempat Pembuangan Tinja" />
+                android:text="Tempat Pembuangan Tinja"
+                android:textColor="@color/colorPrimary" />
 
             <Spinner
                 android:id="@+id/pembuangantinja"
@@ -193,9 +207,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 android:text="Submit"
                 android:textStyle="bold" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

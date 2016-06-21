@@ -15,6 +15,15 @@ public class SurveyList implements Serializable {
     private String namakecamatan;
     private String namakabupaten;
     private String namaprovinsi;
+    private String isvalid;
+
+    public String getIsvalid() {
+        return isvalid;
+    }
+
+    public void setIsvalid(String isvalid) {
+        this.isvalid = isvalid;
+    }
 
     public String getIdsurvey() {
         return idsurvey;

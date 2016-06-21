@@ -1,13 +1,10 @@
 package com.example.riskyds.surveyapps2.activities;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,16 +14,13 @@ import android.widget.Toast;
 
 import com.example.riskyds.surveyapps2.R;
 import com.example.riskyds.surveyapps2.Url;
-import com.example.riskyds.surveyapps2.fragments.SurveyListFragment;
 import com.example.riskyds.surveyapps2.helpers.RequestAsyncTask;
 import com.example.riskyds.surveyapps2.helpers.ResponseManager;
 import com.example.riskyds.surveyapps2.helpers.SessionManager;
 import com.example.riskyds.surveyapps2.models.ArrayPair;
 import com.example.riskyds.surveyapps2.models.Keluarga;
-import com.example.riskyds.surveyapps2.models.Pair;
 import com.example.riskyds.surveyapps2.models.Pekerjaan;
 import com.example.riskyds.surveyapps2.models.Survey;
-import com.example.riskyds.surveyapps2.models.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +43,7 @@ public class SurveyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
         BuildVariabelList();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 //        Mengisi SPINNER PEKERJAAN
         Map<String, String> data = new HashMap<>();

@@ -1,6 +1,9 @@
 package com.example.riskyds.surveyapps2.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,13 +45,48 @@ public class SurveyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         h.nama.setText(item.getNama());
         h.tglsurvey.setText(item.getTglsurvey());
         h.alamat.setText(item.getNamadesa() + " | " + item.getAlamat());
+        if (item.getIsvalid().equals("1")) {
+            h.status.setImageResource(R.drawable.ic_done_36dp);
+            h.status.setColorFilter(ContextCompat.getColor(context, R.color.green_500));
+        } else {
+            h.status.setImageResource(R.drawable.ic_close_36dp);
+            h.status.setColorFilter(ContextCompat.getColor(context, R.color.red_500));
+        }
 
         h.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // todo goto update activity
                 Toast.makeText(context, item.getIdsurvey(), Toast.LENGTH_SHORT).show();
+
             }
         });
+        if (!item.getIsvalid().equals("1")) {
+            h.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+                    alertDialog.setTitle("Peringatan!");
+                    alertDialog.setMessage("Apakah anda ingin menghapus data ini?");
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // todo request
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -68,6 +106,7 @@ public class SurveyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             nama = ((TextView) itemView.findViewById(R.id.nama));
             tglsurvey = ((TextView) itemView.findViewById(R.id.tglsurvey));
             alamat = ((TextView) itemView.findViewById(R.id.alamat));
+            status = ((ImageView) itemView.findViewById(R.id.imgStatus));
         }
     }
 }
