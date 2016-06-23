@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@drawable/border"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp"
+    android:paddingTop="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,15 +34,19 @@
                     android:layout_weight="0.20"
                     android:text="Nama"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
                 <TextView
-                    android:id="@+id/tglsurvey"
+                    android:id="@+id/alamat"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="Tanggal" />
-
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.73"
+                    android:text="Alamat" />
             </LinearLayout>
 
             <LinearLayout
@@ -49,11 +56,21 @@
                 android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/alamat"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.73"
-                    android:text="Alamat" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textSize="11sp"
+                    android:text="Tgl. Survey : " />
+
+                <TextView
+                    android:id="@+id/tglsurvey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="Tanggal" />
 
             </LinearLayout>
 
@@ -69,7 +86,7 @@
                 android:id="@+id/imgStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_done_36dp"/>
+                android:src="@drawable/ic_sync_36dp"/>
 
         </LinearLayout>
 

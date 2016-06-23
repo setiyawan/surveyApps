@@ -22,6 +22,8 @@ import java.util.Map;
 public class DashboadFragment extends Fragment {
 
     protected View v;
+    protected float prosentase;
+    protected int dtMasuk, dtTarget;
 
     protected TextView idprovinsi;
     protected TextView idkabupaten;
@@ -31,6 +33,7 @@ public class DashboadFragment extends Fragment {
     protected TextView datamasuk;
     protected TextView datavalid;
     protected TextView dataInvalid;
+    protected TextView dataProsentase;
 
     ProgressBar progres_bar;
 
@@ -46,6 +49,8 @@ public class DashboadFragment extends Fragment {
         datamasuk = ((TextView) v.findViewById(R.id.dataMasuk));
         datavalid = ((TextView) v.findViewById(R.id.dataValid));
         dataInvalid = ((TextView) v.findViewById(R.id.dataInvalid));
+
+        dataProsentase = ((TextView) v.findViewById(R.id.prosentase));
 
         progres_bar = ((ProgressBar) v.findViewById(R.id.progress_bar));
 
@@ -65,6 +70,12 @@ public class DashboadFragment extends Fragment {
                 datamasuk.setText(dashboard.getDataMasuk());
                 datavalid.setText(dashboard.getDataValid());
                 dataInvalid.setText(dashboard.getDataInvalid());
+
+                dtMasuk = Integer.parseInt(dashboard.getDataMasuk());
+                dtMasuk = dtMasuk * 100;
+                dtTarget = Integer.parseInt(dashboard.getDataTarget());
+                prosentase = (float) dtMasuk/dtTarget;
+                dataProsentase.setText(String.format("%.2f", prosentase) + " %");
 
                 Toast.makeText(getActivity(), responseManager.getMessage(), Toast.LENGTH_SHORT).show();
             }

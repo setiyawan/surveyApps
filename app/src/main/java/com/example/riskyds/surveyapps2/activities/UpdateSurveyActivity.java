@@ -42,7 +42,7 @@ import java.util.Map;
 /**
  * Created by sevima on 5/31/2016.
  */
-public class SurveyActivity extends AppCompatActivity implements LocationListener {
+public class UpdateSurveyActivity extends AppCompatActivity implements LocationListener {
     LocationManager locationManager;
     String provider;
     Location location;
@@ -53,6 +53,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
     private EditText umur, jmlhindividu;
     private Button buttonSurvey;
     ArrayPair tmp = new ArrayPair();
+    SurveyList surveyList;
 
     @Override
     public void onLocationChanged(Location location) {
@@ -74,6 +75,8 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
+        buttonSurvey = ((Button) findViewById(R.id.btnSurvey));
+        buttonSurvey.setText("Update");
         BuildVariabelList();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -94,7 +97,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
         if(location!=null)
             onLocationChanged(location);
 
-        Toast.makeText(getApplicationContext(), "Masukkan Data Survei Dengan Benar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "ID Survey " + surveyList.getIdsurvey(), Toast.LENGTH_SHORT).show();
 
 //        Mengisi SPINNER PEKERJAAN
         Map<String, String> data = new HashMap<>();
@@ -104,7 +107,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
                 List<Pekerjaan> pekerjaans = (List<Pekerjaan>) responseManager.getMany(Pekerjaan.class);
                 spinnerPekerjaan = ((Spinner) findViewById(R.id.pekerjaan));
                 ArrayAdapter<Pekerjaan> pbAdapter = new ArrayAdapter<>
-                        (SurveyActivity.this, android.R.layout.simple_spinner_dropdown_item, pekerjaans);
+                        (UpdateSurveyActivity.this, android.R.layout.simple_spinner_dropdown_item, pekerjaans);
                 spinnerPekerjaan.setAdapter(pbAdapter);
             }
         };
@@ -117,7 +120,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
                 List<Keluarga> keluargas = (List<Keluarga>) responseManager.getMany(Keluarga.class);
                 spinnerKeluarga = ((Spinner) findViewById(R.id.idkeluargas));
                 ArrayAdapter<Keluarga> pbAdapter = new ArrayAdapter<>
-                        (SurveyActivity.this, android.R.layout.simple_spinner_dropdown_item, keluargas);
+                        (UpdateSurveyActivity.this, android.R.layout.simple_spinner_dropdown_item, keluargas);
                 spinnerKeluarga.setAdapter(pbAdapter);
             }
         };
@@ -126,11 +129,10 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
         umur = ((EditText) findViewById(R.id.umur));
         jmlhindividu = ((EditText) findViewById(R.id.jmlhindividu));
 
-        buttonSurvey = ((Button) findViewById(R.id.btnSurvey));
         buttonSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               SessionManager sessionManager = SessionManager.getInstance(getApplicationContext());
+                SessionManager sessionManager = SessionManager.getInstance(getApplicationContext());
                 final Map<String, String> data = new HashMap<>();
 
                 Keluarga keluarga = (Keluarga) spinnerKeluarga.getSelectedItem();
@@ -185,7 +187,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
                     data.put("lattitude", String.valueOf(location.getLatitude()));
                     data.put("longitude", String.valueOf(location.getLongitude()));
 
-                    AlertDialog alertDialog = new AlertDialog.Builder(SurveyActivity.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(UpdateSurveyActivity.this).create();
                     alertDialog.setTitle("Peringatan!");
                     alertDialog.setMessage("Apakah Data Yang Anda Isi Benar? Pastikan Anda Sudah Melakukan Konfirmasi Ulang.");
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Simpan",
