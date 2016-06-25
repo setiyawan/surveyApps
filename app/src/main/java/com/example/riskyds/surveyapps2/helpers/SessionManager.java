@@ -36,6 +36,7 @@ public class SessionManager {
         editor.putString("username", user.getUsername());
         editor.putString("jabatan", user.getJabatan());
         editor.putString("nohp", user.getNohp());
+        editor.putString("file", user.getFile());
         editor.putBoolean(IS_USER_LOGIN, true);
         editor.commit();
     }
@@ -52,6 +53,7 @@ public class SessionManager {
         user.setUsername(sharedPreferences.getString("username", null));
         user.setJabatan(sharedPreferences.getString("jabatan", null));
         user.setNohp(sharedPreferences.getString("nohp", null));
+        user.setFile(sharedPreferences.getString("file", null));
 
         return user;
     }

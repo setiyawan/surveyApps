@@ -1,6 +1,10 @@
 package com.example.riskyds.surveyapps2.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,13 +14,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.riskyds.surveyapps2.R;
+import com.example.riskyds.surveyapps2.Url;
 import com.example.riskyds.surveyapps2.fragments.DashboadFragment;
 import com.example.riskyds.surveyapps2.fragments.PasswordFragment;
 import com.example.riskyds.surveyapps2.fragments.SurveyFragment;
@@ -24,11 +31,17 @@ import com.example.riskyds.surveyapps2.fragments.SurveyListFragment;
 import com.example.riskyds.surveyapps2.helpers.SessionManager;
 import com.example.riskyds.surveyapps2.models.User;
 
+import java.io.InputStream;
+import java.net.URL;
+
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     protected FragmentManager fragmentManager;
     protected TextView txtAkun, txtInfo;
+    protected ImageView img;
+    protected Bitmap bitmap;
+    protected ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +81,36 @@ public class DrawerActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.drawer, menu);
         SessionManager sessionManager = SessionManager.getInstance(this);
+        img = ((ImageView) findViewById(R.id.imageView));
         txtAkun = (TextView) findViewById(R.id.txtAkun);
         txtInfo = (TextView) findViewById(R.id.txtInfo);
+
         txtAkun.setText(sessionManager.getThisUser().getNama());
         txtInfo.setText(sessionManager.getThisUser().getJabatan() + " | " + sessionManager.getThisUser().getNohp());
+        new LoadImage().execute(Url.File + sessionManager.getThisUser().getFile());
         return true;
+    }
+
+    private class LoadImage extends AsyncTask<String, String, Bitmap> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        protected Bitmap doInBackground(String... args) {
+            try {
+                bitmap = BitmapFactory.decodeStream((InputStream) new URL(args[0]).getContent());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        protected void onPostExecute(Bitmap image) {
+            if(image != null){
+                img.setImageBitmap(image);
+            }
+        }
     }
 
     @Override

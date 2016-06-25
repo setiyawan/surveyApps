@@ -20,6 +20,7 @@ import com.example.riskyds.surveyapps2.Url;
 import com.example.riskyds.surveyapps2.activities.SurveyActivity;
 import com.example.riskyds.surveyapps2.activities.UpdateSurveyActivity;
 import com.example.riskyds.surveyapps2.fragments.SurveyListFragment;
+import com.example.riskyds.surveyapps2.helpers.GsonFormatter;
 import com.example.riskyds.surveyapps2.helpers.RequestAsyncTask;
 import com.example.riskyds.surveyapps2.helpers.ResponseManager;
 import com.example.riskyds.surveyapps2.helpers.SessionManager;
@@ -63,23 +64,23 @@ public class SurveyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else if (item.getIsvalid().equals("0")) {
             h.status.setImageResource(R.drawable.ic_close_36dp);
             h.status.setColorFilter(ContextCompat.getColor(context, R.color.red_500));
-        }  else {
-            h.status.setImageResource(R.drawable.ic_sync_36dp);
+        } else {
+            h.status.setImageResource(R.drawable.ic_error_36dp);
             h.status.setColorFilter(ContextCompat.getColor(context, R.color.blue_500));
         }
+        if (!item.getIsvalid().equals("1")) {
+            h.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String strSurveyList = GsonFormatter.basic().toJson(item);
 
-        h.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // todo goto update activity
-                Intent intent = new Intent(context, UpdateSurveyActivity.class);
-                SurveyList surveyList = new SurveyList();
-                surveyList.setIdsurvey(item.getIdsurvey());
-                v.getContext().startActivity(intent);
-                Toast.makeText(context, "D Survey " + surveyList.getIdsurvey(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
+                    Intent intent = new Intent(context, UpdateSurveyActivity.class);
+                    intent.putExtra("SurveyList", strSurveyList);
+                    v.getContext().startActivity(intent);
+//                    Toast.makeText(context, "ID Survey " + item.getIdsurvey(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         if (!item.getIsvalid().equals("1")) {
             h.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

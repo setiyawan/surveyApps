@@ -20,11 +20,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.riskyds.surveyapps2.R;
 import com.example.riskyds.surveyapps2.Url;
 import com.example.riskyds.surveyapps2.adapters.SurveyListAdapter;
+import com.example.riskyds.surveyapps2.helpers.GsonFormatter;
 import com.example.riskyds.surveyapps2.helpers.RequestAsyncTask;
 import com.example.riskyds.surveyapps2.helpers.ResponseManager;
 import com.example.riskyds.surveyapps2.helpers.SessionManager;
@@ -51,9 +53,10 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
             penerangan, bahanbakarmasak, fasilitasbab, pembuangantinja, spinnerPekerjaan, spinnerKeluarga;
     ProgressBar progres_bar;
     private EditText umur, jmlhindividu;
+    private TextView tvKeluarga;
     private Button buttonSurvey;
     ArrayPair tmp = new ArrayPair();
-    SurveyList surveyList;
+    private SurveyList surveyList;
 
     @Override
     public void onLocationChanged(Location location) {
@@ -75,6 +78,13 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
+
+        surveyList = GsonFormatter.basic().fromJson(getIntent().getStringExtra("SurveyList"), SurveyList.class);
+
+        tvKeluarga = ((TextView) findViewById(R.id.tvKeluarga));
+        tvKeluarga.setVisibility(View.VISIBLE);
+        tvKeluarga.setText(surveyList.getNama());
+
         buttonSurvey = ((Button) findViewById(R.id.btnSurvey));
         buttonSurvey.setText("Update");
         BuildVariabelList();
@@ -83,13 +93,6 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         location = locationManager.getLastKnownLocation(provider);
@@ -97,7 +100,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         if(location!=null)
             onLocationChanged(location);
 
-        Toast.makeText(getApplicationContext(), "ID Survey " + surveyList.getIdsurvey(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "ID Detail " + surveyDetail.getIdsurvey(), Toast.LENGTH_SHORT).show();
 
 //        Mengisi SPINNER PEKERJAAN
         Map<String, String> data = new HashMap<>();
@@ -113,18 +116,20 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         };
         listPekerjaan.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Url.SektorPekerjaan);
 
-        Map<String, String> data2 = new HashMap<>();
-        RequestAsyncTask listSurvey = new RequestAsyncTask(data2, null, progres_bar) {
-            @Override
-            protected void setAfterThread(ResponseManager responseManager) {
-                List<Keluarga> keluargas = (List<Keluarga>) responseManager.getMany(Keluarga.class);
-                spinnerKeluarga = ((Spinner) findViewById(R.id.idkeluargas));
-                ArrayAdapter<Keluarga> pbAdapter = new ArrayAdapter<>
-                        (UpdateSurveyActivity.this, android.R.layout.simple_spinner_dropdown_item, keluargas);
-                spinnerKeluarga.setAdapter(pbAdapter);
-            }
-        };
-        listSurvey.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Url.ListSurvey);
+        spinnerKeluarga = ((Spinner) findViewById(R.id.idkeluargas));
+        spinnerKeluarga.setVisibility(View.GONE);
+//        Map<String, String> data2 = new HashMap<>();
+//        RequestAsyncTask listSurvey = new RequestAsyncTask(data2, null, progres_bar) {
+//            @Override
+//            protected void setAfterThread(ResponseManager responseManager) {
+//                List<Keluarga> keluargas = (List<Keluarga>) responseManager.getMany(Keluarga.class);
+//                spinnerKeluarga = ((Spinner) findViewById(R.id.idkeluargas));
+//                ArrayAdapter<Keluarga> pbAdapter = new ArrayAdapter<>
+//                        (UpdateSurveyActivity.this, android.R.layout.simple_spinner_dropdown_item, keluargas);
+//                spinnerKeluarga.setAdapter(pbAdapter);
+//            }
+//        };
+//        listSurvey.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Url.ListSurvey);
 
         umur = ((EditText) findViewById(R.id.umur));
         jmlhindividu = ((EditText) findViewById(R.id.jmlhindividu));
@@ -155,8 +160,9 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
                     Toast.makeText(getApplicationContext(), "Tidak Boleh Ada Informasi Yang Kosong", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    data.put("idsurvey", surveyList.getIdsurvey());
                     data.put("idakun", sessionManager.getThisUser().getIdakun());
-                    data.put("idkeluarga", keluarga.getIdkeluarga());
+                    //data.put("idkeluarga", s.getIdkeluarga());
 
                     tmp = Survey.getJenisKelamin();
                     data.put("jeniskelamin", tmp.getValueFromKey(jeniskelamin.getSelectedItem().toString()));
@@ -203,7 +209,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
                                             Toast.makeText(getApplicationContext(), responseManager.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     };
-                                    add.execute(Url.AddSurvey);
+                                    add.execute(Url.UpdateSurvey);
                                     dialog.dismiss();
                                 }
                             });

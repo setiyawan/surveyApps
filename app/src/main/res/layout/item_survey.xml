@@ -86,7 +86,7 @@
                 android:id="@+id/imgStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_sync_36dp"/>
+                android:src="@drawable/ic_error_36dp"/>
 
         </LinearLayout>
 

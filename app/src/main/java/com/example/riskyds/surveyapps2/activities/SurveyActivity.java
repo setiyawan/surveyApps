@@ -43,6 +43,10 @@ import java.util.Map;
  * Created by sevima on 5/31/2016.
  */
 public class SurveyActivity extends AppCompatActivity implements LocationListener {
+
+    public static final int SURVEY_CREATED = 200;
+    public static final int SURVEY_CANCELLED = 400;
+
     LocationManager locationManager;
     String provider;
     Location location;
@@ -80,18 +84,11 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         location = locationManager.getLastKnownLocation(provider);
         locationManager.requestLocationUpdates(provider, 20000, 1, this);
-        if(location!=null)
+        if (location != null)
             onLocationChanged(location);
 
         Toast.makeText(getApplicationContext(), "Masukkan Data Survei Dengan Benar", Toast.LENGTH_SHORT).show();
@@ -130,7 +127,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
         buttonSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               SessionManager sessionManager = SessionManager.getInstance(getApplicationContext());
+                SessionManager sessionManager = SessionManager.getInstance(getApplicationContext());
                 final Map<String, String> data = new HashMap<>();
 
                 Keluarga keluarga = (Keluarga) spinnerKeluarga.getSelectedItem();
@@ -151,8 +148,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
                 if (umur.getText().toString().equals("") || jmlhindividu.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Tidak Boleh Ada Informasi Yang Kosong", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     data.put("idakun", sessionManager.getThisUser().getIdakun());
                     data.put("idkeluarga", keluarga.getIdkeluarga());
 
@@ -195,7 +191,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
                                         @Override
                                         protected void setAfterThread(ResponseManager responseManager) {
                                             if (responseManager.getCode().equals(Url.CodeTrue)) {
-                                                SurveyListAdapter adapter = new SurveyListAdapter(null);
+                                                setResult(SURVEY_CREATED);
                                                 finish();
                                             }
                                             Toast.makeText(getApplicationContext(), responseManager.getMessage(), Toast.LENGTH_SHORT).show();
@@ -221,7 +217,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
     public void BuildVariabelList() {
         tmp = Survey.getJenisKelamin();
         List<String> JenisKelamin = new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        for (int i = 0; i < tmp.getData().size(); i++) {
             JenisKelamin.add(tmp.getData().get(i).getKey());
         }
         jeniskelamin = (Spinner) findViewById(R.id.jeniskelamin);
@@ -231,8 +227,8 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
 
         tmp = Survey.getPendidikan();
-        List<String> Pendidikan= new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        List<String> Pendidikan = new ArrayList<>();
+        for (int i = 0; i < tmp.getData().size(); i++) {
             Pendidikan.add(tmp.getData().get(i).getKey());
         }
         pendidikan = (Spinner) findViewById(R.id.pendidikan);
@@ -241,8 +237,8 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
         pendidikan.setAdapter(pdAdapter);
 
         tmp = Survey.getPenguasaanBangunan();
-        List<String> PenguasaanBangunan= new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        List<String> PenguasaanBangunan = new ArrayList<>();
+        for (int i = 0; i < tmp.getData().size(); i++) {
             PenguasaanBangunan.add(tmp.getData().get(i).getKey());
         }
         penguasaanbangunan = (Spinner) findViewById(R.id.penguasaanbangunan);
@@ -252,7 +248,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
         tmp = Survey.getJenisAtap();
         List<String> JenisAtap = new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        for (int i = 0; i < tmp.getData().size(); i++) {
             JenisAtap.add(tmp.getData().get(i).getKey());
         }
         jenisatap = (Spinner) findViewById(R.id.jenisatap);
@@ -262,7 +258,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
         tmp = Survey.getJenisDinding();
         List<String> JenisDinding = new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        for (int i = 0; i < tmp.getData().size(); i++) {
             JenisDinding.add(tmp.getData().get(i).getKey());
         }
         jenisdinding = (Spinner) findViewById(R.id.jenisdinding);
@@ -272,7 +268,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
         tmp = Survey.getJenisLantai();
         List<String> JenisLantai = new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        for (int i = 0; i < tmp.getData().size(); i++) {
             JenisLantai.add(tmp.getData().get(i).getKey());
         }
         jenislantai = (Spinner) findViewById(R.id.jenislantai);
@@ -282,7 +278,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
         tmp = Survey.getAirMinum();
         List<String> AirMinum = new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        for (int i = 0; i < tmp.getData().size(); i++) {
             AirMinum.add(tmp.getData().get(i).getKey());
         }
         airminum = (Spinner) findViewById(R.id.airminum);
@@ -292,7 +288,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
         tmp = Survey.getPenerangan();
         List<String> Penerangan = new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        for (int i = 0; i < tmp.getData().size(); i++) {
             Penerangan.add(tmp.getData().get(i).getKey());
         }
         penerangan = (Spinner) findViewById(R.id.penerangan);
@@ -302,7 +298,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
         tmp = Survey.getBahanBakarMasak();
         List<String> BahanBakar = new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        for (int i = 0; i < tmp.getData().size(); i++) {
             BahanBakar.add(tmp.getData().get(i).getKey());
         }
         bahanbakarmasak = (Spinner) findViewById(R.id.bahanbakarmasak);
@@ -312,7 +308,7 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
         tmp = Survey.getFasilitasBab();
         List<String> FasilitasBab = new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        for (int i = 0; i < tmp.getData().size(); i++) {
             FasilitasBab.add(tmp.getData().get(i).getKey());
         }
         fasilitasbab = (Spinner) findViewById(R.id.fasilitasbab);
@@ -322,12 +318,18 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
 
         tmp = Survey.getPembuanganTinja();
         List<String> PembuanganTinja = new ArrayList<>();
-        for (int i=0; i<tmp.getData().size();i++) {
+        for (int i = 0; i < tmp.getData().size(); i++) {
             PembuanganTinja.add(tmp.getData().get(i).getKey());
         }
         pembuangantinja = (Spinner) findViewById(R.id.pembuangantinja);
         ArrayAdapter<String> ptAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, PembuanganTinja);
         pembuangantinja.setAdapter(ptAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(SURVEY_CANCELLED);
+        super.onBackPressed();
     }
 }

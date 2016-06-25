@@ -11,18 +11,20 @@
             android:icon="@drawable/ic_survey"
             android:title="Survey" />
 
-    <item android:title="Optional">
-        <menu>
-            <item
-                android:id="@+id/nav_change_password"
-                android:icon="@drawable/ic_password"
-                android:title="Ganti Password" />
-            <item
-                android:id="@+id/nav_log_out"
-                android:icon="@drawable/ic_log_out"
-                android:title="Logout" />
-        </menu>
-    </item>
+        <item android:title="Optional">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_change_password"
+                        android:icon="@drawable/ic_password"
+                        android:title="Ganti Password" />
+                    <item
+                        android:id="@+id/nav_log_out"
+                        android:icon="@drawable/ic_log_out"
+                        android:title="Logout" />
+                </group>
+            </menu>
+        </item>
     </group>
 
 </menu>

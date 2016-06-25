@@ -38,6 +38,8 @@ public class SurveyListFragment extends Fragment {
     ProgressBar progres_bar;
     RecyclerView rvMain;
     FloatingActionButton addSurvey;
+    SessionManager sessionManager;
+    SurveyListAdapter adapter;
 
     List<SurveyList> surveyLists = new ArrayList<>();
 
@@ -57,17 +59,29 @@ public class SurveyListFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     Intent intent = new Intent(getActivity(), SurveyActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                 }
                 return true; // consume the event
             }
         });
 
-        // todo adapter
-        final SurveyListAdapter adapter = new SurveyListAdapter(surveyLists);
+        adapter = new SurveyListAdapter(surveyLists);
         rvMain.setAdapter(adapter);
 
-        SessionManager sessionManager = SessionManager.getInstance(getContext());
+        sessionManager = SessionManager.getInstance(getContext());
+        requestData();
+        return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == SurveyActivity.SURVEY_CREATED) {
+            requestData();
+        }
+    }
+
+    private void requestData() {
         Map<String, String> data = new HashMap<>();
         data.put("idakun", sessionManager.getThisUser().getIdakun());
 
@@ -82,6 +96,5 @@ public class SurveyListFragment extends Fragment {
             }
         };
         request.execute(Url.SurveyAll);
-        return v;
     }
 }

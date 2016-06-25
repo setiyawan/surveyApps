@@ -11,6 +11,7 @@ public class User implements Serializable {
     private String nama;
     private String jabatan;
     private String nohp;
+    private String file;
 
     public String getUsername() {
         return username;
@@ -50,5 +51,13 @@ public class User implements Serializable {
 
     public void setNohp(String nohp) {
         this.nohp = nohp;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 }
