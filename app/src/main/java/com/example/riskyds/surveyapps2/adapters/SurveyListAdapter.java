@@ -66,7 +66,7 @@ public class SurveyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             h.status.setColorFilter(ContextCompat.getColor(context, R.color.red_500));
         } else {
             h.status.setImageResource(R.drawable.ic_error_36dp);
-            h.status.setColorFilter(ContextCompat.getColor(context, R.color.blue_500));
+            h.status.setColorFilter(ContextCompat.getColor(context, R.color.orange_500));
         }
         if (!item.getIsvalid().equals("1")) {
             h.itemView.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +77,6 @@ public class SurveyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     Intent intent = new Intent(context, UpdateSurveyActivity.class);
                     intent.putExtra("SurveyList", strSurveyList);
                     v.getContext().startActivity(intent);
-//                    Toast.makeText(context, "ID Survey " + item.getIdsurvey(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

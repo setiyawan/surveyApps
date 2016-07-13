@@ -20,7 +20,6 @@ public class Url {
     public static final String SurveyAll = Server + "c_survey/getall";
     public static final String AddSurvey = Server + "c_survey/add";
     public static final String DeleteSurvey = Server + "c_survey/delete";
-    public static final String DetailSurvey = Server + "c_survey/details";
     public static final String UpdateSurvey = Server + "c_survey/update";
 
 }

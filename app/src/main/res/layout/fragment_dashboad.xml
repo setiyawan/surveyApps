@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="-"
-                android:textColor="#0000cc"
+                android:textColor="#3f51b5"
                 android:textSize="@dimen/value"/>
 
             <TextView
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="@dimen/value"
-                android:textColor="#ffcc00"
+                android:textColor="#ffc107"
                 android:text="-" />
 
 
@@ -198,7 +198,7 @@
                 android:gravity="center"
                 android:text="-"
                 android:textSize="@dimen/value"
-                android:textColor="#33cc33"/>
+                android:textColor="#4caf50"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -215,7 +215,7 @@
                 android:gravity="center"
                 android:text="-"
                 android:textSize="@dimen/value"
-                android:textColor="#e62e00"/>
+                android:textColor="#f44336"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -237,22 +237,23 @@
                 android:text="Prosentase Data Masuk"
                 android:textStyle="italic"
                 android:textAlignment="center"
-                android:textSize="10dp"/>
+                android:textSize="12dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="-"
+                android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:id="@+id/prosentase"
-                android:textColor="#00ffcc"
-                android:textSize="60dp"/>
+                android:textColor="#009688"
+                android:textSize="65dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Dari Total Data Target"
                 android:textStyle="italic"
                 android:textAlignment="center"
-                android:textSize="10dp"/>
+                android:textSize="12dp"/>
         </LinearLayout>
     </LinearLayout>
 

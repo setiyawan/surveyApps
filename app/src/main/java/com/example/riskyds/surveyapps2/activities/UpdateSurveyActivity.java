@@ -45,6 +45,10 @@ import java.util.Map;
  * Created by sevima on 5/31/2016.
  */
 public class UpdateSurveyActivity extends AppCompatActivity implements LocationListener {
+
+    public static final int SURVEY_CREATED = 200;
+    public static final int SURVEY_CANCELLED = 400;
+
     LocationManager locationManager;
     String provider;
     Location location;
@@ -87,7 +91,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
 
         buttonSurvey = ((Button) findViewById(R.id.btnSurvey));
         buttonSurvey.setText("Update");
-        BuildVariabelList();
+        BuildVariabelList(surveyList);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -100,11 +104,9 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         if(location!=null)
             onLocationChanged(location);
 
-//        Toast.makeText(getApplicationContext(), "ID Detail " + surveyDetail.getIdsurvey(), Toast.LENGTH_SHORT).show();
-
 //        Mengisi SPINNER PEKERJAAN
         Map<String, String> data = new HashMap<>();
-        RequestAsyncTask listPekerjaan = new RequestAsyncTask(data, null, progres_bar) {
+        final RequestAsyncTask listPekerjaan = new RequestAsyncTask(data, null, progres_bar) {
             @Override
             protected void setAfterThread(ResponseManager responseManager) {
                 List<Pekerjaan> pekerjaans = (List<Pekerjaan>) responseManager.getMany(Pekerjaan.class);
@@ -118,21 +120,12 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
 
         spinnerKeluarga = ((Spinner) findViewById(R.id.idkeluargas));
         spinnerKeluarga.setVisibility(View.GONE);
-//        Map<String, String> data2 = new HashMap<>();
-//        RequestAsyncTask listSurvey = new RequestAsyncTask(data2, null, progres_bar) {
-//            @Override
-//            protected void setAfterThread(ResponseManager responseManager) {
-//                List<Keluarga> keluargas = (List<Keluarga>) responseManager.getMany(Keluarga.class);
-//                spinnerKeluarga = ((Spinner) findViewById(R.id.idkeluargas));
-//                ArrayAdapter<Keluarga> pbAdapter = new ArrayAdapter<>
-//                        (UpdateSurveyActivity.this, android.R.layout.simple_spinner_dropdown_item, keluargas);
-//                spinnerKeluarga.setAdapter(pbAdapter);
-//            }
-//        };
-//        listSurvey.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Url.ListSurvey);
 
         umur = ((EditText) findViewById(R.id.umur));
+        int index = surveyList.getUmur().indexOf(".");
+        umur.setText(surveyList.getUmur().substring(0, index));
         jmlhindividu = ((EditText) findViewById(R.id.jmlhindividu));
+        jmlhindividu.setText(surveyList.getJmlhindividu());
 
         buttonSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +155,6 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
                 else {
                     data.put("idsurvey", surveyList.getIdsurvey());
                     data.put("idakun", sessionManager.getThisUser().getIdakun());
-                    //data.put("idkeluarga", s.getIdkeluarga());
 
                     tmp = Survey.getJenisKelamin();
                     data.put("jeniskelamin", tmp.getValueFromKey(jeniskelamin.getSelectedItem().toString()));
@@ -203,7 +195,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
                                         @Override
                                         protected void setAfterThread(ResponseManager responseManager) {
                                             if (responseManager.getCode().equals(Url.CodeTrue)) {
-                                                SurveyListAdapter adapter = new SurveyListAdapter(null);
+                                                setResult(SURVEY_CREATED);
                                                 finish();
                                             }
                                             Toast.makeText(getApplicationContext(), responseManager.getMessage(), Toast.LENGTH_SHORT).show();
@@ -226,7 +218,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
     }
 
     //SPINNER STATIC
-    public void BuildVariabelList() {
+    public void BuildVariabelList(SurveyList surveyList) {
         tmp = Survey.getJenisKelamin();
         List<String> JenisKelamin = new ArrayList<>();
         for (int i=0; i<tmp.getData().size();i++) {
@@ -236,7 +228,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> jkAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, JenisKelamin);
         jeniskelamin.setAdapter(jkAdapter);
-
+        jeniskelamin.setSelection(jkAdapter.getPosition(tmp.getKeyFromValue(surveyList.getJeniskelamin())));
 
         tmp = Survey.getPendidikan();
         List<String> Pendidikan= new ArrayList<>();
@@ -247,6 +239,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> pdAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, Pendidikan);
         pendidikan.setAdapter(pdAdapter);
+        pendidikan.setSelection(pdAdapter.getPosition(tmp.getKeyFromValue(surveyList.getPendidikan())));
 
         tmp = Survey.getPenguasaanBangunan();
         List<String> PenguasaanBangunan= new ArrayList<>();
@@ -257,6 +250,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> pbAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, PenguasaanBangunan);
         penguasaanbangunan.setAdapter(pbAdapter);
+        penguasaanbangunan.setSelection(pbAdapter.getPosition(tmp.getKeyFromValue(surveyList.getPenguasaanbangunan())));
 
         tmp = Survey.getJenisAtap();
         List<String> JenisAtap = new ArrayList<>();
@@ -267,6 +261,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> jaAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, JenisAtap);
         jenisatap.setAdapter(jaAdapter);
+        jenisatap.setSelection(jaAdapter.getPosition(tmp.getKeyFromValue(surveyList.getJenisatap())));
 
         tmp = Survey.getJenisDinding();
         List<String> JenisDinding = new ArrayList<>();
@@ -277,6 +272,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> jdAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, JenisDinding);
         jenisdinding.setAdapter(jdAdapter);
+        jenisdinding.setSelection(jdAdapter.getPosition(tmp.getKeyFromValue(surveyList.getJenisdinding())));
 
         tmp = Survey.getJenisLantai();
         List<String> JenisLantai = new ArrayList<>();
@@ -287,6 +283,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> jlAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, JenisLantai);
         jenislantai.setAdapter(jlAdapter);
+        jenislantai.setSelection(jlAdapter.getPosition(tmp.getKeyFromValue(surveyList.getJenislantai())));
 
         tmp = Survey.getAirMinum();
         List<String> AirMinum = new ArrayList<>();
@@ -297,6 +294,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> amAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, AirMinum);
         airminum.setAdapter(amAdapter);
+        airminum.setSelection(amAdapter.getPosition(tmp.getKeyFromValue(surveyList.getAirminum())));
 
         tmp = Survey.getPenerangan();
         List<String> Penerangan = new ArrayList<>();
@@ -307,6 +305,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> pgAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, Penerangan);
         penerangan.setAdapter(pgAdapter);
+        penerangan.setSelection(pgAdapter.getPosition(tmp.getKeyFromValue(surveyList.getPenerangan())));
 
         tmp = Survey.getBahanBakarMasak();
         List<String> BahanBakar = new ArrayList<>();
@@ -317,6 +316,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> bbAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, BahanBakar);
         bahanbakarmasak.setAdapter(bbAdapter);
+        bahanbakarmasak.setSelection(bbAdapter.getPosition(tmp.getKeyFromValue(surveyList.getBahanbakarmasak())));
 
         tmp = Survey.getFasilitasBab();
         List<String> FasilitasBab = new ArrayList<>();
@@ -327,6 +327,7 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> faAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, FasilitasBab);
         fasilitasbab.setAdapter(faAdapter);
+        fasilitasbab.setSelection(faAdapter.getPosition(tmp.getKeyFromValue(surveyList.getFasilitasbab())));
 
         tmp = Survey.getPembuanganTinja();
         List<String> PembuanganTinja = new ArrayList<>();
@@ -337,5 +338,12 @@ public class UpdateSurveyActivity extends AppCompatActivity implements LocationL
         ArrayAdapter<String> ptAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, PembuanganTinja);
         pembuangantinja.setAdapter(ptAdapter);
+        pembuangantinja.setSelection(ptAdapter.getPosition(tmp.getKeyFromValue(surveyList.getPembuangantinja())));
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(SURVEY_CANCELLED);
+        super.onBackPressed();
     }
 }

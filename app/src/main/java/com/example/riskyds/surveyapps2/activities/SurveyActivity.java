@@ -108,6 +108,8 @@ public class SurveyActivity extends AppCompatActivity implements LocationListene
         listPekerjaan.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Url.SektorPekerjaan);
 
         Map<String, String> data2 = new HashMap<>();
+        SessionManager sessionManager = SessionManager.getInstance(getApplicationContext());
+        data2.put("idakun", sessionManager.getThisUser().getIdakun());
         RequestAsyncTask listSurvey = new RequestAsyncTask(data2, null, progres_bar) {
             @Override
             protected void setAfterThread(ResponseManager responseManager) {
